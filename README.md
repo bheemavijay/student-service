@@ -1,2 +1,2 @@
-# quiz-service
-quiz-service for Interview Application
+# student-service
+student-service for Interview Application
