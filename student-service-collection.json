@@ -1,0 +1,267 @@
+{
+	"info": {
+		"_postman_id": "b1f8c8e1-5b7d-4b9a-8e2a-1c9f8d5e9b3a",
+		"name": "Student Service",
+		"description": "This collection contains all the APIs for the Student Service, which is responsible for tracking student progress on questions.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Health Check",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/student/test",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"student",
+						"test"
+					]
+				},
+				"description": "A simple endpoint to check if the Student Service is running and accessible."
+			},
+			"response": [
+				{
+					"name": "Successful Response",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/student/test",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"student",
+								"test"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain;charset=UTF-8"
+						}
+					],
+					"cookie": [],
+					"body": "Student Service Working!"
+				}
+			]
+		},
+		{
+			"name": "Save Student Progress",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"studentId\": 1,\n    \"questionId\": 101,\n    \"status\": \"SOLVED\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/student/progress",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"student",
+						"progress"
+					]
+				},
+				"description": "Saves or updates a student's progress on a specific question. If an entry for the given `studentId` and `questionId` already exists, it updates the status. Otherwise, it creates a new progress record."
+			},
+			"response": [
+				{
+					"name": "Progress Saved",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"studentId\": 1,\n    \"questionId\": 101,\n    \"status\": \"SOLVED\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/student/progress",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"student",
+								"progress"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": 1,\n    \"studentId\": 1,\n    \"questionId\": 101,\n    \"status\": \"SOLVED\",\n    \"updatedAt\": \"2023-10-27T12:30:00.123Z\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Get All Progress for a Student",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/student/1/progress",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"student",
+						"1",
+						"progress"
+					]
+				},
+				"description": "Retrieves a complete list of all progress entries for a specific student, including all statuses (e.g., 'SOLVED', 'ATTEMPTED')."
+			},
+			"response": [
+				{
+					"name": "Progress Found",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/student/1/progress",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"student",
+								"1",
+								"progress"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"id\": 1,\n        \"studentId\": 1,\n        \"questionId\": 101,\n        \"status\": \"SOLVED\",\n        \"updatedAt\": \"2023-10-27T12:30:00.123Z\"\n    },\n    {\n        \"id\": 2,\n        \"studentId\": 1,\n        \"questionId\": 102,\n        \"status\": \"ATTEMPTED\",\n        \"updatedAt\": \"2023-10-27T12:35:10.456Z\"\n    }\n]"
+				},
+				{
+					"name": "No Progress Found",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/student/99/progress",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"student",
+								"99",
+								"progress"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "[]"
+				}
+			]
+		},
+		{
+			"name": "Get Solved Questions for a Student",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/student/1/solved",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"student",
+						"1",
+						"solved"
+					]
+				},
+				"description": "Retrieves a list of all questions that a specific student has successfully solved (i.e., status is 'SOLVED')."
+			},
+			"response": [
+				{
+					"name": "Solved Questions Found",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/student/1/solved",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"student",
+								"1",
+								"solved"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"id\": 1,\n        \"studentId\": 1,\n        \"questionId\": 101,\n        \"status\": \"SOLVED\",\n        \"updatedAt\": \"2023-10-27T12:30:00.123Z\"\n    }\n]"
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8083",
+			"type": "string"
+		}
+	]
+}
